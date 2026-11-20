@@ -56,23 +56,23 @@ TimeAttackMenu::TimeAttackMenu(MenuBackground& menuBackground) :
 				mZoneEntry->addOption(zone.mDisplayName, zoneId);
 				if (acts == 2)
 				{
-					mActEntry->addOption("Act 1", zoneId);
-					mActEntry->addOption("Act 2", zoneId + 1);
+					mActEntry->addOption("Acto 1", zoneId);
+					mActEntry->addOption("Acto 2", zoneId + 1);
 				}
 				else
 				{
-					mActEntry->addOption("Single Act", zoneId);
+					mActEntry->addOption("Acto Unico", zoneId);
 				}
 			}
 		}
 
 		mCharacterEntry = &mMenuEntries.addEntry();
 		mCharacterEntry->addOption("Sonic",				  (uint32)CharacterOption::SONIC_CLASSIC);
-		mCharacterEntry->addOption("Sonic - Max Control", (uint32)CharacterOption::SONIC_MAXCONTROL);
+		mCharacterEntry->addOption("Sonic - Control Total", (uint32)CharacterOption::SONIC_MAXCONTROL);
 		mCharacterEntry->addOption("Tails",				  (uint32)CharacterOption::TAILS);
 		mCharacterEntry->addOption("Knuckles",			  (uint32)CharacterOption::KNUCKLES);
 
-		mMenuEntries.addEntry("Back", 0x10);
+		mMenuEntries.addEntry("Volver", 0x10);
 	}
 
 	// Set defaults
@@ -275,7 +275,7 @@ void TimeAttackMenu::render()
 	}
 
 	// Title text
-	drawer.printText(global::mSonicFontC, Recti(anchorX, 4, 0, 18), "TIME ATTACK", 5, Color(1.0f, 1.0f, 1.0f, alpha));
+	drawer.printText(global::mSonicFontC, Recti(anchorX, 4, 0, 18), "CONTRARRELOJ", 5, Color(1.0f, 1.0f, 1.0f, alpha));
 
 	// Menu entries
 	const int positionY[] = { 116, 138, 160, 198 };
