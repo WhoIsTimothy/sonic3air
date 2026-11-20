@@ -47,7 +47,7 @@ MainMenu::MainMenu(MenuBackground& menuBackground) :
 	{
 		mMenuEntries.reserve(6);
 		mMenuEntries.addEntry("JUGAR", mainmenu::NORMAL_GAME);
-		mMenuEntries.addEntry("SELECTOR DE ACTO",  mainmenu::ACT_SELECT);
+		mMenuEntries.addEntry("SELECCION DE ACTO",  mainmenu::ACT_SELECT);
 		mMenuEntries.addEntry("CONTRARRELOJ", mainmenu::TIME_ATTACK);
 		mMenuEntries.addEntry("OPCIONES",	 mainmenu::OPTIONS);
 		mMenuEntries.addEntry("EXTRAS",		 mainmenu::EXTRAS);
