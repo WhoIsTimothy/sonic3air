@@ -178,7 +178,7 @@ void OptionsMenuEntry::renderInternal(RenderContext& renderContext_, const Color
 
 		if (mData == option::CONTROLLER_SETUP)
 		{
-			drawer.printText(font, Recti(baseX, py, 0, 10), Application::instance().hasKeyboard() ? "Setup Keyboard & Game Controllers..." : "Setup Game Controllers...", 5, color);
+			drawer.printText(font, Recti(baseX, py, 0, 10), Application::instance().hasKeyboard() ? "Configurar teclado y botones..." : "Configurar controles...", 5, color);
 		}
 		else
 		{
@@ -221,7 +221,7 @@ void OptionsMenuEntry::renderInternal(RenderContext& renderContext_, const Color
 		// Value text
 		const AudioCollection::AudioDefinition* audioDefinition = nullptr;
 		{
-			static const std::string TEXT_NOT_AVAILABLE = "not available";
+			static const std::string TEXT_NOT_AVAILABLE = "no disponible";
 			const std::string* text = (isDisabled && mData != option::RENDERER) ? &TEXT_NOT_AVAILABLE : &mOptions[mSelectedIndex].mText;
 			if (mData == option::SOUND_TEST)
 			{
@@ -229,7 +229,7 @@ void OptionsMenuEntry::renderInternal(RenderContext& renderContext_, const Color
 				if (nullptr != audioDefinition && AudioOut::instance().getAudioKeyType(audioDefinition->mPrimaryKeyId) == AudioOutBase::AudioKeyType::MODDED)
 				{
 					static std::string combinedText;
-					combinedText = *text + " (modded)";
+					combinedText = *text + " (moddeado)";
 					text = &combinedText;
 				}
 			}
@@ -274,7 +274,7 @@ void UpdateCheckMenuEntry::renderEntry(RenderContext& renderContext_)
 	int& py = renderContext.mCurrentPosition.y;
 	const float alpha = renderContext.mTabAlpha;
 
-	drawer.printText(global::mOxyfontSmall, Recti(baseX - 100, py, 0, 10), "Your Game Version:", 4, Color(1.0f, 1.0f, 1.0f, alpha));
+	drawer.printText(global::mOxyfontSmall, Recti(baseX - 100, py, 0, 10), "Version Del Juego:", 4, Color(1.0f, 1.0f, 1.0f, alpha));
 	drawer.printText(global::mOxyfontSmall, Recti(baseX + 100, py, 0, 10), "v" BUILD_STRING, 6, Color(0.8f, 1.0f, 0.8f, alpha));
 	py += 12;
 
@@ -283,31 +283,31 @@ void UpdateCheckMenuEntry::renderEntry(RenderContext& renderContext_)
 	{
 		case UpdateCheck::State::FAILED:
 		{
-			drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "Can't connect to server", 5, Color(1.0f, 0.0f, 0.0f, alpha));
+			drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "No se puede conectar al servidor", 5, Color(1.0f, 0.0f, 0.0f, alpha));
 			break;
 		}
 		case UpdateCheck::State::SEND_QUERY:
 		case UpdateCheck::State::WAITING_FOR_RESPONSE:
 		{
-			drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "Connecting to server...", 5, Color(1.0f, 1.0f, 1.0f, alpha));
+			drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "Conectando al servidor...", 5, Color(1.0f, 1.0f, 1.0f, alpha));
 			break;
 		}
 		case UpdateCheck::State::HAS_RESPONSE:
 		{
 			if (updateCheck.hasUpdate())
 			{
-				drawer.printText(global::mOxyfontSmall, Recti(baseX - 100, py, 0, 10), "Update available:", 4, Color(1.0f, 1.0f, 1.0f, alpha));
+				drawer.printText(global::mOxyfontSmall, Recti(baseX - 100, py, 0, 10), "Actualizacion disponible:", 4, Color(1.0f, 1.0f, 1.0f, alpha));
 				drawer.printText(global::mOxyfontSmall, Recti(baseX + 100, py, 0, 10), getVersionString(updateCheck.getResponse()->mAvailableAppVersion), 6, Color(1.0f, 1.0f, 0.6f, alpha));
 			}
 			else
 			{
-				drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "You're using the latest version", 5, Color(0.8f, 1.0f, 0.8f, alpha));
+				drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "Estas usando la ultima version", 5, Color(0.8f, 1.0f, 0.8f, alpha));
 			}
 			break;
 		}
 		default:
 		{
-			drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "Ready to check for updates", 5, Color(0.8f, 0.8f, 0.8f, alpha));
+			drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "Listo para buscar actualizaciones", 5, Color(0.8f, 0.8f, 0.8f, alpha));
 			break;
 		}
 	}
@@ -340,7 +340,7 @@ void SoundtrackMenuEntry::renderEntry(RenderContext& renderContext_)
 			const int center = mText.empty() ? baseX : (baseX + 88);
 
 			py += 13;
-			drawer.printText(global::mOxyfontTiny, Recti(center - 80, py, 160, 10), "Must be downloaded separately", 5, Color(1.0f, 0.9f, 0.8f, renderContext.mTabAlpha));
+			drawer.printText(global::mOxyfontTiny, Recti(center - 80, py, 160, 10), "Debe descargarse por separado", 5, Color(1.0f, 0.9f, 0.8f, renderContext.mTabAlpha));
 			py += 10;
 			drawer.printText(global::mOxyfontTiny, Recti(center - 80, py, 160, 10), "(Exit and select \"Extra Downloads\")", 5, Color(1.0f, 0.9f, 0.8f, renderContext.mTabAlpha));
 			++py;
@@ -366,28 +366,28 @@ void SoundtrackDownloadMenuEntry::renderEntry(RenderContext& renderContext_)
 		switch (state)
 		{
 			case RemasteredMusicDownload::State::READY_FOR_DOWNLOAD:
-				text = "Download remastered soundtrack now? (126 MB)";
-				mText = "Start download";
+				text = "Descargar banda sonora remasterizada? (126 MB)";
+				mText = "Iniciar descarga";
 				break;
 
 			case RemasteredMusicDownload::State::DOWNLOAD_PENDING:
-				text = "Waiting for download...";
-				mText = "Stop download";
+				text = "Esperando para descargar...";
+				mText = "Detener descarga";
 				break;
 
 			case RemasteredMusicDownload::State::DOWNLOAD_RUNNING:
-				text = "Downloading... " + std::to_string(download.getBytesDownloaded() / (1024*1024)) + " MB";
-				mText = "Stop download";
+				text = "Descargando... " + std::to_string(download.getBytesDownloaded() / (1024*1024)) + " MB";
+				mText = "Detener descarga";
 				break;
 
 			case RemasteredMusicDownload::State::DOWNLOAD_DONE:
-				text = "Download complete";
-				mText = "Load soundtrack";
+				text = "Descarga completa";
+				mText = "Cargar banda sonora";
 				break;
 
 			case RemasteredMusicDownload::State::DOWNLOAD_FAILED:
-				text = "Download failed";
-				mText = "Restart download";
+				text = "Descarga fallida";
+				mText = "Reintentar descarga";
 				break;
 
 			default:
