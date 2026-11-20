@@ -74,59 +74,59 @@ void OptionsConfig::buildSystem()
 	ConfigBuilder configBuilder(mSystemOptions);
 
 #if !defined(PLATFORM_VITA)
-	CATEGORY("Update")
+	CATEGORY("Actualizaciones")
 	{
-		configBuilder.addSetting("Check for updates", option::_CHECK_FOR_UPDATE)
-			.addOption("Stable updates", 0)
-			.addOption("Stable & preview", 1)
-			.addOption("All incl. test builds", 2);
+		configBuilder.addSetting("Buscar actualizaciones", option::_CHECK_FOR_UPDATE)
+			.addOption("Actualizaciones estables", 0)
+			.addOption("Estable y preliminares", 1)
+			.addOption("Todas, incluidas versiones de prueba", 2);
 	}
 
-	CATEGORY("Ghost Sync")
+	CATEGORY("Sincronizacion de Fantasmas")
 	{
-		configBuilder.addSetting("Enable Ghost Sync", option::GHOST_SYNC)
-			.addOption("Disabled", 0)
-			.addOption("Enabled", 1);
+		configBuilder.addSetting("Activar sinc. de fantasmas", option::GHOST_SYNC)
+			.addOption("Desactivado", 0)
+			.addOption("Activado", 1);
 
-		configBuilder.addSetting("Ghost Display", option::GHOST_SYNC_RENDERING)
-			.addOption("Full opacity", 1)
-			.addOption("Semi-transparent", 2)
-			.addOption("Ghost Style", 3);
+		configBuilder.addSetting("Visualizacion de Fantasmas", option::GHOST_SYNC_RENDERING)
+			.addOption("Opacidad total", 1)
+			.addOption("Semi-transparente", 2)
+			.addOption("Estilo fantasma", 3);
 	}
 #endif
 
 #if defined(SUPPORT_IMGUI)
-	CATEGORY("Data Management")
+	CATEGORY("Gestion de Datos")
 	{
-		configBuilder.addSetting("Open File Browser", option::_OPEN_FILE_BROWSER);
+		configBuilder.addSetting("Abrir en explorador", option::_OPEN_FILE_BROWSER);
 	}
 #endif
 
-	CATEGORY("More Info")
+	CATEGORY("Mas Informacion")
 	{
-		configBuilder.addSetting("Open Game Homepage", option::_OPEN_HOMEPAGE);
-		configBuilder.addSetting("Open Manual", option::_OPEN_MANUAL);
+		configBuilder.addSetting("Abrir Pagina del Juego", option::_OPEN_HOMEPAGE);
+		configBuilder.addSetting("Abrir Manual", option::_OPEN_MANUAL);
 	}
 
-	CATEGORY("Debugging")
+	CATEGORY("Depuracion")
 	{
-		configBuilder.addSetting("Script Optimization", option::SCRIPT_OPTIMIZATION)
-			.addOption("Auto (Default)", -1)
-			.addOption("Disabled", 0)
-			.addOption("Basic", 1)
-			.addOption("Full", 3);
+		configBuilder.addSetting("Optimizacion de scripts", option::SCRIPT_OPTIMIZATION)
+			.addOption("Automatico (Predeterminado)", -1)
+			.addOption("Desactivado", 0)
+			.addOption("Basico", 1)
+			.addOption("Completo", 3);
 
-		configBuilder.addSetting("Debug Game Recording", option::GAME_RECORDING_MODE)
-			.addOption("Auto (Default)", -1)
-			.addOption("Disabled", 0)
-			.addOption("Enabled", 1);
+		configBuilder.addSetting("Grabacion de Depuracion", option::GAME_RECORDING_MODE)
+			.addOption("Automatico (Predeterminado)", -1)
+			.addOption("Desactivado", 0)
+			.addOption("Activado", 1);
 	}
 
-	CATEGORY("Dev Mode")
+	CATEGORY("Modo Desarrollador")
 	{
-		configBuilder.addSetting("Dev Mode", option::DEV_MODE)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Modo Desarrollador", option::DEV_MODE)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 	}
 }
 
@@ -136,78 +136,78 @@ void OptionsConfig::buildDisplay()
 
 	CATEGORY("General")
 	{
-		configBuilder.addSetting("Renderer:", option::RENDERER);
+		configBuilder.addSetting("Renderizador:", option::RENDERER);
 		const Configuration::RenderMethod highest = Configuration::getHighestSupportedRenderMethod();
 
 	#if !defined(PLATFORM_VITA)
-		configBuilder.addOption("Fail-Safe / Software", (uint32)Configuration::RenderMethod::SOFTWARE);
+		configBuilder.addOption("Compatibilidad / Software", (uint32)Configuration::RenderMethod::SOFTWARE);
 		if (highest >= Configuration::RenderMethod::OPENGL_SOFT)
-			configBuilder.addOption("OpenGL Software", (uint32)Configuration::RenderMethod::OPENGL_SOFT);
+			configBuilder.addOption("OpenGL por Software", (uint32)Configuration::RenderMethod::OPENGL_SOFT);
 		if (highest >= Configuration::RenderMethod::OPENGL_FULL)
-			configBuilder.addOption("OpenGL Hardware", (uint32)Configuration::RenderMethod::OPENGL_FULL);
+			configBuilder.addOption("OpenGL por Hardware", (uint32)Configuration::RenderMethod::OPENGL_FULL);
 	#else
 		// OpenGL Hardware does not work correctly on PSVita
-		configBuilder.addOption("OpenGL Software", (uint32)Configuration::RenderMethod::OPENGL_SOFT);
+		configBuilder.addOption("OpenGL por Software", (uint32)Configuration::RenderMethod::OPENGL_SOFT);
 	#endif
 
-		configBuilder.addSetting("Frame Sync:", option::FRAME_SYNC)
-			.addOption("V-Sync Off", 0)
-			.addOption("V-Sync On", 1)
-			.addOption("V-Sync + FPS Cap", 2);
+		configBuilder.addSetting("Sincronizacion:", option::FRAME_SYNC)
+			.addOption("V-Sync Apagado", 0)
+			.addOption("V-Sync Encendido", 1)
+			.addOption("V-Sync + Limite de FPS", 2);
 
-		configBuilder.addSetting("Upscaling:", option::UPSCALING)
-			.addOption("Integer Scale", 1)
-			.addOption("Aspect Fit", 0)
-			.addOption("Stretch 50%", 2)
-			.addOption("Stretch 100%", 3);
+		configBuilder.addSetting("Escalado:", option::UPSCALING)
+			.addOption("Escalado Entero", 1)
+			.addOption("Ajustar Proporcion", 0)
+			.addOption("Estirar 50%", 2)
+			.addOption("Estirar 100%", 3);
 			//.addOption("Scale To Fill", 4);	// Works, but shouldn't be an option, as it looks a bit broken
 
 		configBuilder.addSetting("Backdrop:", option::BACKDROP)
-			.addOption("Black", 0)
-			.addOption("Classic Box 1", 1)
-			.addOption("Classic Box 2", 2)
-			.addOption("Classic Box 3", 3);
+			.addOption("Fondo", 0)
+			.addOption("Marco clasico 1", 1)
+			.addOption("Marco clasico 2", 2)
+			.addOption("Marco clasico 3", 3);
 
-		configBuilder.addSetting("Background Blur:", option::BG_BLUR)
-			.addOption("Off", 0)
+		configBuilder.addSetting("Desenfoque de Fondo:", option::BG_BLUR)
+			.addOption("Apagado", 0)
 			.addOption("25%", 1)
 			.addOption("50%", 2)
 			.addOption("75%", 3)
 			.addOption("100%", 4);
 	}
 
-	CATEGORY("Screen Filter")
+	CATEGORY("Filtro de Pantalla")
 	{
 	#if !defined(PLATFORM_VITA)
-		configBuilder.addSetting("Screen Filter:", option::SCREEN_FILTER_INDEX)
+		configBuilder.addSetting("Filtro de pantalla:", option::SCREEN_FILTER_INDEX)
 			.addOption("Pixel", 1)
 			.addOption("xBRZ", 2)
 			.addOption("HQx", 3);
 	#else
 		// High quality filters on the PSVITA is playing in slowmotion...
-		configBuilder.addSetting("Screen Filter:", option::SCREEN_FILTER_INDEX)
+		configBuilder.addSetting("Filtro de pantalla:", option::SCREEN_FILTER_INDEX)
 			.addOption("Pixel", 1);
 	#endif
 
-		configBuilder.addSetting("Variant:", option::SCREEN_FILTER_PIXEL_VARIANT)
-			.addOption("Sharp", 0)
-			.addOption("Soft 1", 1)
-			.addOption("Soft 2", 2);
+		configBuilder.addSetting("Variante:", option::SCREEN_FILTER_PIXEL_VARIANT)
+			.addOption("Nitido", 0)
+			.addOption("Suave 1", 1)
+			.addOption("Suave 2", 2);
 
-		configBuilder.addSetting("Variant:", option::SCREEN_FILTER_HQX_VARIANT)
+		configBuilder.addSetting("Variante:", option::SCREEN_FILTER_HQX_VARIANT)
 			.addOption("HQ2x", 0)
 			.addOption("HQ3x", 1)
 			.addOption("HQ4x", 2);
 
-		configBuilder.addSetting("Scanlines:", option::SCREEN_FILTER_SCANLINES)
-			.addOption("Off", 0)
+		configBuilder.addSetting("Lineas de escaneo:", option::SCREEN_FILTER_SCANLINES)
+			.addOption("Apagado", 0)
 			.addOption("25%", 1)
 			.addOption("50%", 2)
 			.addOption("75%", 3)
 			.addOption("100%", 4);
 	}
 
-	CATEGORY("Window Mode")
+	CATEGORY("Modo Ventana")
 	{
 	#if !defined(PLATFORM_VITA)
 	#if defined(PLATFORM_LINUX)
@@ -217,31 +217,31 @@ void OptionsConfig::buildDisplay()
 		const Configuration::WindowMode borderlessFullscreenMode = Configuration::WindowMode::FULLSCREEN_BORDERLESS;
 	#endif
 
-		configBuilder.addSetting("Current Screen:", option::WINDOW_MODE)
-			.addOption("Windowed", (uint32)Configuration::WindowMode::WINDOWED)
-			.addOption("Fullscreen", (uint32)borderlessFullscreenMode)
-			.addOption("Exclusive Fullscreen", (uint32)Configuration::WindowMode::FULLSCREEN_EXCLUSIVE);
+		configBuilder.addSetting("Pantalla Actual:", option::WINDOW_MODE)
+			.addOption("En Ventana", (uint32)Configuration::WindowMode::WINDOWED)
+			.addOption("Pantalla Completa", (uint32)borderlessFullscreenMode)
+			.addOption("Pantalla Completa Exclusiva", (uint32)Configuration::WindowMode::FULLSCREEN_EXCLUSIVE);
 
-		configBuilder.addSetting("Startup Screen:", option::WINDOW_MODE_STARTUP)
-			.addOption("Windowed", (uint32)Configuration::WindowMode::WINDOWED)
-			.addOption("Fullscreen", (uint32)borderlessFullscreenMode)
-			.addOption("Exclusive Fullscreen", (uint32)Configuration::WindowMode::FULLSCREEN_EXCLUSIVE);
+		configBuilder.addSetting("Pantalla de Inicio:", option::WINDOW_MODE_STARTUP)
+			.addOption("En Ventana", (uint32)Configuration::WindowMode::WINDOWED)
+			.addOption("Pantalla Completa", (uint32)borderlessFullscreenMode)
+			.addOption("Pantalla Completa Exclusiva", (uint32)Configuration::WindowMode::FULLSCREEN_EXCLUSIVE);
 	#else
 		// These aren't supposed to show up on the Vita
-		configBuilder.addSetting("Current Screen:", option::WINDOW_MODE)
-			.addOption("Exclusive Fullscreen", 0);
+		configBuilder.addSetting("Pantalla Actual:", option::WINDOW_MODE)
+			.addOption("Pantalla Completa Exclusiva", 0);
 
-		configBuilder.addSetting("Startup Screen:", option::WINDOW_MODE_STARTUP)
-			.addOption("Exclusive Fullscreen", 0);
+		configBuilder.addSetting("Pantalla de Inicio:", option::WINDOW_MODE_STARTUP)
+			.addOption("Pantalla Completa Exclusiva", 0);
 	#endif
 	}
 
-	CATEGORY("Performance Output")
+	CATEGORY("Informacion de Rendimiento")
 	{
-		configBuilder.addSetting("Show Performance:", option::PERFORMANCE_DISPLAY)
-			.addOption("Off", 0)
-			.addOption("Show Framerate", 1)
-			.addOption("Full Profiling", 2);
+		configBuilder.addSetting("Mostrar Rendimiento:", option::PERFORMANCE_DISPLAY)
+			.addOption("Apagado", 0)
+			.addOption("Mostrar FPS", 1)
+			.addOption("Analisis Completo", 2);
 	}
 }
 
@@ -249,131 +249,131 @@ void OptionsConfig::buildAudio()
 {
 	ConfigBuilder configBuilder(mAudioOptions);
 
-	CATEGORY("Volume")
+	CATEGORY("Volumen")
 	{
-		const char* volumeName[] = { "Overall Volume:", "Music Volume:", "Sound Volume:" };
+		const char* volumeName[] = { "Volumen General:", "Volumen de Musica:", "Volumen de Sonido:" };
 		for (int k = 0; k < 3; ++k)
 		{
 			configBuilder.addSetting(volumeName[k], (option::Option)(option::MASTER_VOLUME + k))
-				.addOption("Off", 0)
+				.addOption("Apagado", 0)
 				.addNumberOptions(5, 100, 5, "%");
 		}
 	}
 
-	CATEGORY("Soundtrack")
+	CATEGORY("Banda Sonora")
 	{
-		configBuilder.addSetting("Soundtrack Type:", option::SOUNDTRACK)
-			.addOption("Emulated", 0)
-			.addOption("Remastered", 1);
+		configBuilder.addSetting("Tipo de Banda Sonora:", option::SOUNDTRACK)
+			.addOption("Emulada", 0)
+			.addOption("Remasterizada", 1);
 
-		configBuilder.addSetting("Sound Test:", option::SOUND_TEST);		// Will be filled with content in "OptionsMenu::initialize()"
+		configBuilder.addSetting("Prueba de Sonido:", option::SOUND_TEST);		// Will be filled with content in "OptionsMenu::initialize()"
 	}
 
-	CATEGORY("Theme Selection")
+	CATEGORY("Seleccion de Temas")
 	{
-		configBuilder.addSetting("Title Theme:", option::TITLE_THEME)
+		configBuilder.addSetting("Tema de Titulo:", option::TITLE_THEME)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1);
 
-		configBuilder.addSetting("1-up Jingle:", option::EXTRA_LIFE_JINGLE)
+		configBuilder.addSetting("Melodia de Vida Extra:", option::EXTRA_LIFE_JINGLE)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1)
-			.addOption("Pick by Zone", 0x10);
+			.addOption("Elegir Por Zona", 0x10);
 
-		configBuilder.addSetting("Invincibility Theme:", option::INVINCIBILITY_THEME)
+		configBuilder.addSetting("Tema de Invincibilidad:", option::INVINCIBILITY_THEME)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1)
-			.addOption("Pick by Zone", 0x10);
+			.addOption("Elegir Por Zona", 0x10);
 
-		configBuilder.addSetting("Super/Hyper Theme:", option::SUPER_THEME)
-			.addOption("Normal level music", 0)
-			.addOption("Fast level music", 1)
+		configBuilder.addSetting("Tema Super/Hyper:", option::SUPER_THEME)
+			.addOption("Musica normal de nivel", 0)
+			.addOption("Musica rapida de nivel", 1)
 			.addOption("Sonic 2", 2)
 			.addOption("Sonic 3", 3)
 			.addOption("Sonic & Knuckles", 4)
-			.addOption("S3 Prototype", 5);
+			.addOption("S3 Prototipo", 5);
 
-		configBuilder.addSetting("Mini-Boss Theme:", option::MINIBOSS_THEME)
+		configBuilder.addSetting("Tema de Mini-Jefe:", option::MINIBOSS_THEME)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1)
-			.addOption("Pick by Zone", 0x10);
+			.addOption("Elegir Por Zona", 0x10);
 
-		configBuilder.addSetting("Knuckles' Theme:", option::KNUCKLES_THEME)
+		configBuilder.addSetting("Tema de Knuckles:", option::KNUCKLES_THEME)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1)
-			.addOption("S3 Prototype", 2)
-			.addOption("Pick by Zone", 0x10);
+			.addOption("S3 Prototipo", 2)
+			.addOption("Elegir Por Zona", 0x10);
 	}
 
-	CATEGORY("Level Music")
+	CATEGORY("Musica De Nivel")
 	{
-		configBuilder.addSetting("Carnival Night Act 1:", option::LEVELMUSIC_CNZ1)
-			.addOption("As Released", 0x00000001)
-			.addOption("S3 Prototype", 0x80000001);
+		configBuilder.addSetting("Carnival Night Acto 1:", option::LEVELMUSIC_CNZ1)
+			.addOption("Version Final", 0x00000001)
+			.addOption("S3 Prototipo", 0x80000001);
 
-		configBuilder.addSetting("Carnival Night Act 2:", option::LEVELMUSIC_CNZ2)
-			.addOption("As Released", 0x00000002)
-			.addOption("S3 Prototype", 0x80000002);
+		configBuilder.addSetting("Carnival Night Acto 2:", option::LEVELMUSIC_CNZ2)
+			.addOption("Version Final", 0x00000002)
+			.addOption("S3 Prototipo", 0x80000002);
 
-		configBuilder.addSetting("IceCap Act 1:", option::LEVELMUSIC_ICZ1)
-			.addOption("As Released", 0x00000001)
-			.addOption("S3 Prototype", 0x80000001);
+		configBuilder.addSetting("IceCap Acto 1:", option::LEVELMUSIC_ICZ1)
+			.addOption("Version Final", 0x00000001)
+			.addOption("S3 Prototipo", 0x80000001);
 
-		configBuilder.addSetting("IceCap Act 2:", option::LEVELMUSIC_ICZ2)
-			.addOption("As Released", 0x00000002)
-			.addOption("S3 Prototype", 0x80000002);
+		configBuilder.addSetting("IceCap Acto 2:", option::LEVELMUSIC_ICZ2)
+			.addOption("Version Final", 0x00000002)
+			.addOption("S3 Prototipo", 0x80000002);
 
-		configBuilder.addSetting("Launch Base Act 1:", option::LEVELMUSIC_LBZ1)
-			.addOption("As Released", 0x00000001)
-			.addOption("S3 Prototype", 0x80000001);
+		configBuilder.addSetting("Launch Base Acto 1:", option::LEVELMUSIC_LBZ1)
+			.addOption("Version Final", 0x00000001)
+			.addOption("S3 Prototipo", 0x80000001);
 
-		configBuilder.addSetting("Launch Base Act 2:", option::LEVELMUSIC_LBZ2)
-			.addOption("As Released", 0x00000002)
-			.addOption("S3 Prototype", 0x80000002);
+		configBuilder.addSetting("Launch Base Acto 2:", option::LEVELMUSIC_LBZ2)
+			.addOption("Version Final", 0x00000002)
+			.addOption("S3 Prototipo", 0x80000002);
 	}
 
-	CATEGORY("Music Selection")
+	CATEGORY("Seleccion de Musica")
 	{
-		configBuilder.addSetting("FBZ Laser Trap Boss:", option::FBZ2_MIDBOSS_TRACK)
-			.addOption("Mini-Boss Music", 1)
-			.addOption("Main Boss Music", 0);
+		configBuilder.addSetting("Jefe de Trampa-Laser de FBZ:", option::FBZ2_MIDBOSS_TRACK)
+			.addOption("Musica de Minijefe", 1)
+			.addOption("Musica de Jefe Principal", 0);
 
-		configBuilder.addSetting("In Hidden Palace:", option::HPZ_MUSIC)
+		configBuilder.addSetting("En Hidden Palace:", option::HPZ_MUSIC)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1)
-			.addOption("S3 + S&K Mini-Boss", 2)
-			.addOption("S3 Prototype", 3);
+			.addOption("S3 + S&K Minijefe", 2)
+			.addOption("S3 Prototipo", 3);
 
-		configBuilder.addSetting("Sky Sanctuary Bosses:", option::SSZ_BOSSTRACKS)
-			.addOption("Normal Boss Music", 0)
-			.addOption("Sonic 1 & 2 Tracks", 1);
+		configBuilder.addSetting("Jefes de Sky Sanctuary:", option::SSZ_BOSSTRACKS)
+			.addOption("Musica Normal de Jefe", 0)
+			.addOption("Temas de Sonic 1 & 2", 1);
 
-		configBuilder.addSetting("Outro Music:", option::OUTRO_MUSIC)
+		configBuilder.addSetting("Musica de Cierre:", option::OUTRO_MUSIC)
 			.addOption("Sky Sanctuary", 0)
-			.addOption("Sonic 3 Credits", 1)
-			.addOption("S3 Prototype", 2);
+			.addOption("Creditos de Sonic 3", 1)
+			.addOption("S3 Prototipl", 2);
 
-		configBuilder.addSetting("Competition Menu:", option::COMPETITION_MENU_MUSIC)
+		configBuilder.addSetting("Menu de Competicion:", option::COMPETITION_MENU_MUSIC)
 			.addOption("Sonic 3", 0)
-			.addOption("S3 Prototype", 1);
+			.addOption("S3 Prototipo", 1);
 
-		configBuilder.addSetting("Continue Screen:", option::CONTINUE_SCREEN_MUSIC)
+		configBuilder.addSetting("Pantalla de Continuacion:", option::CONTINUE_SCREEN_MUSIC)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1);
 	}
 
-	CATEGORY("Music Behavior")
+	CATEGORY("Comportamiento de Musica")
 	{
-		configBuilder.addSetting("On Level (Re)Start:", option::CONTINUE_MUSIC)
-			.addOption("Restart Music", 0)
-			.addOption("Continue Music", 1);
+		configBuilder.addSetting("Al (Re)Iniciar Nivel:", option::CONTINUE_MUSIC)
+			.addOption("Reiniciar Musica", 0)
+			.addOption("Continuar Musica", 1);
 	}
 
-	CATEGORY("Effects")
+	CATEGORY("Efectos")
 	{
-		configBuilder.addSetting("Underwater Sound:", option::UNDERWATER_AUDIO)
+		configBuilder.addSetting("Sonido Bajo El Agua:", option::UNDERWATER_AUDIO)
 			.addOption("Normal", 0)
-			.addOption("Muffled", 1);
+			.addOption("Amortiguado", 1);
 	}
 }
 
@@ -381,70 +381,70 @@ void OptionsConfig::buildVisuals()
 {
 	ConfigBuilder configBuilder(mVisualsOptions);
 
-	CATEGORY("Visual Enhancements")
+	CATEGORY("Mejoras Visuales")
 	{
-		configBuilder.addSetting("Character Rotation:", option::ROTATION)
+		configBuilder.addSetting("Rotacion de Personajes:", option::ROTATION)
 			.addOption("Original", 0)
-			.addOption("Smooth", 1)
-			.addOption("Mania-Accurate", 2);
+			.addOption("Suave", 1)
+			.addOption("Fiel a Mania", 2);
 
-		configBuilder.addSetting("Time Display:", option::TIME_DISPLAY)
+		configBuilder.addSetting("Visualizacion de Tiempo:", option::TIME_DISPLAY)
 			.addOption("Original", 0)
-			.addOption("Extended", 1);
+			.addOption("Extendido", 1);
 
-		configBuilder.addSetting("Lives Display:", option::LIVES_DISPLAY)
-			.addOption("Auto", 0)
-			.addOption("Classic", 1)
-			.addOption("Mobile", 2);
+		configBuilder.addSetting("Visualizacion de Vidas:", option::LIVES_DISPLAY)
+			.addOption("Automatico", 0)
+			.addOption("Clasico", 1)
+			.addOption("Movil", 2);
 
-		configBuilder.addSetting("Speed Shoes Effect:", option::SPEEDUP_AFTER_IMAGES)
-			.addOption("None (Original)", 0)
-			.addOption("After-Images", 1);
+		configBuilder.addSetting("Efecto Speed-Shoes", option::SPEEDUP_AFTER_IMAGES)
+			.addOption("Ninguno (Original)", 0)
+			.addOption("Estelas", 1);
 
-		configBuilder.addSetting("Fast Run Animation:", option::FAST_RUN_ANIM)
-			.addOption("None (Original)", 0)
+		configBuilder.addSetting("Animacion de Fast Run:", option::FAST_RUN_ANIM)
+			.addOption("Ninguno (Original)", 0)
 			.addOption("Peel-Out", 1);
 
-		configBuilder.addSetting("Flicker Effects:", option::ANTI_FLICKER)
-			.addOption("As Original", 0)
-			.addOption("Slightly Smoothed", 1)
-			.addOption("Heavily Smoothed", 2);
+		configBuilder.addSetting("Efectos de Parpadeo:", option::ANTI_FLICKER)
+			.addOption("Como El Original", 0)
+			.addOption("Suavizado Leve", 1)
+			.addOption("Suavizado Intenso", 2);
 	}
 
-	CATEGORY("Camera")
+	CATEGORY("Camara")
 	{
-		configBuilder.addSetting("Outrun Camera:", option::CAMERA_OUTRUN)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Camara Dinamica:", option::CAMERA_OUTRUN)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("Extended Camera:", option::EXTENDED_CAMERA)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Camara Extendida:", option::EXTENDED_CAMERA)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 	}
 
-	CATEGORY("Objects")
+	CATEGORY("Objetos")
 	{
-		configBuilder.addSetting("Monitor Style:", option::MONITOR_STYLE)
+		configBuilder.addSetting("Estilo de Monitor:", option::MONITOR_STYLE)
 			.addOption("Sonic 1 / 2", 1)
 			.addOption("Sonic 3 & Knuckles", 0);
 	}
 
-	CATEGORY("Color Changes")
+	CATEGORY("Cambios de Color")
 	{
-		configBuilder.addSetting("IceCap Startup Time:", option::ICZ_NIGHTTIME)
-			.addOption("Daytime", 0)
-			.addOption("Morning Dawn", 1);
+		configBuilder.addSetting("Hora Inicial de IceCap:", option::ICZ_NIGHTTIME)
+			.addOption("Dia", 0)
+			.addOption("Amanecer", 1);
 	}
 
-	CATEGORY("Special Stages")
+	CATEGORY("Fases Especiales")
 	{
-		configBuilder.addSetting("Blue Spheres Style:", option::SPECIAL_STAGE_VISUALS)
-			.addOption("Classic", 0)
-			.addOption("Modernized", 3);
+		configBuilder.addSetting("Estilo de Blue Spheres:", option::SPECIAL_STAGE_VISUALS)
+			.addOption("Clasico", 0)
+			.addOption("Modernizado", 3);
 
-		configBuilder.addSetting("Ring Counter:", option::SPECIAL_STAGE_RING_COUNT)
-			.addOption("Counting Up", 0)
-			.addOption("Counting Down", 1);
+		configBuilder.addSetting("Contador de Anillos:", option::SPECIAL_STAGE_RING_COUNT)
+			.addOption("Ascendente", 0)
+			.addOption("Descendente", 1);
 	}
 }
 
@@ -452,48 +452,48 @@ void OptionsConfig::buildGameplay()
 {
 	ConfigBuilder configBuilder(mGameplayOptions);
 
-	CATEGORY("Levels")
+	CATEGORY("Niveles")
 	{
-		configBuilder.addSetting("Level Layouts:", option::LEVEL_LAYOUTS)
+		configBuilder.addSetting("Version de Niveles:", option::LEVEL_LAYOUTS)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic 3 & Knuckles", 1)
 			.addOption("Sonic 3 A.I.R.", 2);
 	}
 
-	CATEGORY("Difficulty Changes")
+	CATEGORY("Cambios de Dificultad")
 	{
-		configBuilder.addSetting("Angel Island Bombing:", option::AIZ_BLIMPSEQUENCE)
+		configBuilder.addSetting("Bombardeo en Angel Island:", option::AIZ_BLIMPSEQUENCE)
 			.addOption("Original", 0)
-			.addOption("Alternative", 1);
+			.addOption("Alternativo", 1);
 
-		configBuilder.addSetting("Big Arms Boss Fight:", option::LBZ_BIGARMS)
-			.addOption("Only Knuckles", 0)
-			.addOption("All characters", 1);
+		configBuilder.addSetting("Combate contra Big Arms:", option::LBZ_BIGARMS)
+			.addOption("Solo Knuckles", 0)
+			.addOption("Todos Los Personajes", 1);
 
-		configBuilder.addSetting("Sandopolis Ghosts:", option::SOZ_GHOSTSPAWN)
-			.addOption("Disabled", 1)
-			.addOption("Enabled", 0);
+		configBuilder.addSetting("Fantasmas en Sandopolis:", option::SOZ_GHOSTSPAWN)
+			.addOption("Desactivados", 1)
+			.addOption("Activados", 0);
 
-		configBuilder.addSetting("Lava Reef Act 2 Boss:", option::LRZ2_BOSS)
-			.addOption("8 hits", 1)
-			.addOption("14 hits (original)", 0);
+		configBuilder.addSetting("Jefe de Lava Reef Acto 2:", option::LRZ2_BOSS)
+			.addOption("8 impactos", 1)
+			.addOption("14 impactos (original)", 0);
 
-		configBuilder.addSetting("Keep Shield after Zone:", option::MAINTAIN_SHIELDS)
-			.addOption("Disabled", 0)
-			.addOption("Enabled", 1);
+		configBuilder.addSetting("Conservar Escudos Tras La Zona:", option::MAINTAIN_SHIELDS)
+			.addOption("Desactivado", 0)
+			.addOption("Activado", 1);
 	}
 
-	CATEGORY("Time Attack")
+	CATEGORY("Contrarreloj")
 	{
-		configBuilder.addSetting("Max. Recorded Ghosts:", option::TIMEATTACK_GHOSTS)
-			.addOption("Off", 0)
+		configBuilder.addSetting("Max. de Fantasmas Guardados:", option::TIMEATTACK_GHOSTS)
+			.addOption("Apagado", 0)
 			.addOption("1", 1)
 			.addOption("3", 3)
 			.addOption("5", 5);
 
-		configBuilder.addSetting("Quick Restart:", option::TIMEATTACK_INSTANTRESTART)
-			.addOption("Hold Y Button", 0)
-			.addOption("Press Y Button", 1);
+		configBuilder.addSetting("Reinicio Rapido:", option::TIMEATTACK_INSTANTRESTART)
+			.addOption("Mantener pulsado Y", 0)
+			.addOption("Pulsar Y", 1);
 	}
 }
 
@@ -501,104 +501,104 @@ void OptionsConfig::buildControls()
 {
 	ConfigBuilder configBuilder(mControlsOptions);
 
-	CATEGORY("Unlocked by Secrets")
+	CATEGORY("Desbloqueado por Secretos")
 	{
-		configBuilder.addSetting("Sonic Drop Dash:", option::DROP_DASH)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Drop Dash de Sonic:", option::DROP_DASH)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("Sonic Super Peel-Out:", option::SUPER_PEELOUT)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Super Peel-Out de Sonic:", option::SUPER_PEELOUT)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 	}
 
-	CATEGORY("Controllers")
+	CATEGORY("Controles")
 	{
-		configBuilder.addSetting("Setup Keyboard & Game Controllers...", option::CONTROLLER_SETUP);		// This text here won't be used, see rendering
+		configBuilder.addSetting("Configurar Teclado Y Controles...", option::CONTROLLER_SETUP);		// This text here won't be used, see rendering
 
 		for (int k = 0; k < InputManager::NUM_PLAYERS; ++k)
 		{
-			configBuilder.addSetting(*String(0, "Controller Player %d", k+1), (option::Option)(option::CONTROLLER_PLAYER_1 + k));
+			configBuilder.addSetting(*String(0, "Control del Jugador %d", k+1), (option::Option)(option::CONTROLLER_PLAYER_1 + k));
 			if (Application::instance().hasVirtualGamepad())
-				configBuilder.addOption("None (Touch only)", -1);
+				configBuilder.addOption("Ninguno (Solo tactil)", -1);
 			else
-				configBuilder.addOption("None (Keyboard only)", -1);
+				configBuilder.addOption("Ninguno (Solo teclado)", -1);
 			// Actual options will get filled in inside "OptionsMenu::refreshGamepadLists"
 		}
 
-		configBuilder.addSetting("Other controllers", option::CONTROLLER_AUTOASSIGN)
-			.addOption("Not used", -1)
-			.addOption("Assign to Player 1", 0)
-			.addOption("Assign to Player 2", 1)
-			.addOption("Assign to Player 3", 2)
-			.addOption("Assign to Player 4", 3);
+		configBuilder.addSetting("Otros controles", option::CONTROLLER_AUTOASSIGN)
+			.addOption("Sin usar", -1)
+			.addOption("Asignar al Jugador 1", 0)
+			.addOption("Asignar al Jugador 2", 1)
+			.addOption("Asignar al Jugador 3", 2)
+			.addOption("Asignar al Jugador 4", 3);
 	}
 
 	if (Application::instance().hasVirtualGamepad())
 	{
-		CATEGORY("Virtual Gamepad")
+		CATEGORY("Control Virtual")
 		{
-			configBuilder.addSetting("Visibility:", option::VGAMEPAD_OPACITY).addNumberOptions(0, 100, 10, "%");
-			configBuilder.addSetting("D-Pad Size:",	option::VGAMEPAD_DPAD_SIZE).addNumberOptions(50, 150, 10);
-			configBuilder.addSetting("Buttons Size:", option::VGAMEPAD_BUTTONS_SIZE).addNumberOptions(50, 150, 10);
-			configBuilder.addSetting("Set Touch Gamepad Layout...", option::VGAMEPAD_SETUP);
+			configBuilder.addSetting("Visibilidad:", option::VGAMEPAD_OPACITY).addNumberOptions(0, 100, 10, "%");
+			configBuilder.addSetting("Tamaño de la Cruzeta:",	option::VGAMEPAD_DPAD_SIZE).addNumberOptions(50, 150, 10);
+			configBuilder.addSetting("Tamaño de los Botones:", option::VGAMEPAD_BUTTONS_SIZE).addNumberOptions(50, 150, 10);
+			configBuilder.addSetting("Distribucion del Control Tactil...", option::VGAMEPAD_SETUP);
 		}
 	}
 
-	CATEGORY("Controller Rumble")
+	CATEGORY("Vibracion Del Controles")
 	{
 		for (int k = 0; k < InputManager::NUM_PLAYERS; ++k)
 		{
-			configBuilder.addSetting(*String(0, "Rumble Player %d", k+1), (option::Option)(option::CONTROLLER_RUMBLE_P1 + k));
-			configBuilder.addOption("Off", 0);
+			configBuilder.addSetting(*String(0, "Vibracion del Jugador %d", k+1), (option::Option)(option::CONTROLLER_RUMBLE_P1 + k));
+			configBuilder.addOption("Apagado", 0);
 			for (int i = 20; i <= 100; i += 20)
 				configBuilder.addOption(*String(0, "%d %%", i), i);
 		}
 	}
 
-	CATEGORY("Abilities")
+	CATEGORY("Habilidades")
 	{
-		configBuilder.addSetting("Sonic Insta-Shield:", option::INSTA_SHIELD)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Insta-Shield de Sonic:", option::INSTA_SHIELD)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("Tails Assist:", option::TAILS_ASSIST)
-			.addOption("Off", 0)
-			.addOption("Sonic 3 A.I.R. Style", 1)
-			.addOption("Hybrid Style", 2)
-			.addOption("Sonic Mania Style", 3);
+		configBuilder.addSetting("Asistencia de Tails:", option::TAILS_ASSIST)
+			.addOption("Apagado", 0)
+			.addOption("Estilo Sonic 3 A.I.R.", 1)
+			.addOption("Estilo Hibrido", 2)
+			.addOption("Estilo de Sonic Mania", 3);
 
-		configBuilder.addSetting("Tails Flight Cancel:", option::TAILS_FLIGHT_CANCEL)
-			.addOption("Off", 0)
-			.addOption("Down + Jump", 1);
+		configBuilder.addSetting("Cancelar Vuelo de Tails:", option::TAILS_FLIGHT_CANCEL)
+			.addOption("Apagado", 0)
+			.addOption("Abajo + Salto", 1);
 
-		configBuilder.addSetting("Roll Jump Control Lock:", option::NO_CONTROL_LOCK)
-			.addOption("Locked (Classic)", 0)
-			.addOption("Free Movement", 1);
+		configBuilder.addSetting("Bloqueo al Saltar Rodando:", option::NO_CONTROL_LOCK)
+			.addOption("Bloqueado (Clasico)", 0)
+			.addOption("Movimiento Libre", 1);
 
-		configBuilder.addSetting("Bubble Shield Bounce:", option::BUBBLE_SHIELD_BOUNCE)
-			.addOption("Sonic 3 Style", 0)
-			.addOption("Sonic Mania Style", 1);
+		configBuilder.addSetting("Rebote del Escudo Burbuja:", option::BUBBLE_SHIELD_BOUNCE)
+			.addOption("Estilo Sonic 3", 0)
+			.addOption("Estilo de Sonic Mania", 1);
 	}
 
-	CATEGORY("Super & Hyper Forms")
+	CATEGORY("Formas Super e Hyper")
 	{
-		configBuilder.addSetting("Tails Super Forms:", option::HYPER_TAILS)
-			.addOption("Only Super Tails", 0)
-			.addOption("Super & Hyper Tails", 1);
+		configBuilder.addSetting("Formas Super de Tails:", option::HYPER_TAILS)
+			.addOption("Solo Super Tails", 0)
+			.addOption("Super e Hyper Tails", 1);
 
-		configBuilder.addSetting("Super Cancel:", option::SUPER_CANCEL)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Cancelar Forma Super:", option::SUPER_CANCEL)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("Super Sonic Jump Ability:", option::SUPER_SONIC_ABILITY)
-			.addOption("None (Original)", 0)
-			.addOption("Shield", 1)
-			.addOption("Super Dash", 2);
+		configBuilder.addSetting("Habilidad de salto de Super Sonic:", option::SUPER_SONIC_ABILITY)
+			.addOption("Ninguna (Original)", 0)
+			.addOption("Escudo", 1)
+			.addOption("Super Impulso", 2);
 
-		configBuilder.addSetting("Sonic Hyper Dash:", option::HYPER_DASH_CONTROLS)
-			.addOption("As Original", 0)
-			.addOption("Only when D-pad held", 1);
+		configBuilder.addSetting("Hyper Dash de Sonic:", option::HYPER_DASH_CONTROLS)
+			.addOption("Como El Original", 0)
+			.addOption("Solo Al Mantener Cruzeta", 1);
 	}
 }
 
@@ -606,121 +606,121 @@ void OptionsConfig::buildTweaks()
 {
 	ConfigBuilder configBuilder(mTweaksOptions);
 
-	CATEGORY("Unlocked by Secrets")
+	CATEGORY("Desbloqueado Por Secretos")
 	{
-		configBuilder.addSetting("Debug Mode:", option::DEBUG_MODE)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Modo Debug:", option::DEBUG_MODE)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("Title Screen:", option::TITLE_SCREEN)
+		configBuilder.addSetting("Pantalla de Titulo:", option::TITLE_SCREEN)
 			.addOption("Sonic 3", 0)
 			.addOption("Sonic & Knuckles", 1);
 
-		configBuilder.addSetting("Game Speed:", option::GAME_SPEED)
-			.addOption("50 Hz (slower)", 50)
+		configBuilder.addSetting("Velocidad De Juego:", option::GAME_SPEED)
+			.addOption("50 Hz (lento)", 50)
 			.addOption("60 Hz (normal)", 60)
-			.addOption("75 Hz (faster)", 75)
-			.addOption("90 Hz (much faster)", 90)
-			.addOption("120 Hz (ridiculous)", 120)
-			.addOption("144 Hz (ludicrous)", 144);
+			.addOption("75 Hz (rapido)", 75)
+			.addOption("90 Hz (muy rapido)", 90)
+			.addOption("120 Hz (ya bajale we)", 120)
+			.addOption("144 Hz (que le bajes alv-)", 144);
 	}
 
-	CATEGORY("Accessibility")
+	CATEGORY("Accesibilidad")
 	{
-		configBuilder.addSetting("Infinite Lives:", option::INFINITE_LIVES)
-			.addOption("Disabled", 0)
-			.addOption("Enabled", 1);
+		configBuilder.addSetting("Vidas Infinitas:", option::INFINITE_LIVES)
+			.addOption("Desactivado", 0)
+			.addOption("Activado", 1);
 
-		configBuilder.addSetting("Infinite Time:", option::INFINITE_TIME)
-			.addOption("Disabled", 0)
-			.addOption("Enabled", 1);
+		configBuilder.addSetting("Tiempo Infinito:", option::INFINITE_TIME)
+			.addOption("Desactivado", 0)
+			.addOption("Activado", 1);
 	}
 
-	CATEGORY("Game Variety")
+	CATEGORY("Variedad de Juego")
 	{
-		configBuilder.addSetting("Shields:", option::SHIELD_TYPES)
-			.addOption("Classic Shield", 0)
-			.addOption("Elemental Shields", 1)
-			.addOption("Classic + Elemental", 2)
-			.addOption("Upgradable Shields", 3);
+		configBuilder.addSetting("Escudos:", option::SHIELD_TYPES)
+			.addOption("Escudo clasico", 0)
+			.addOption("Escudos elementales", 1)
+			.addOption("Clasico + Elementales", 2)
+			.addOption("Escudos Mejorables", 3);
 
-		configBuilder.addSetting("Randomized Monitors:", option::RANDOM_MONITORS)
-			.addOption("Normal Monitors", 0)
-			.addOption("Random Shields", 1)
-			.addOption("Random Monitors", 2);
+		configBuilder.addSetting("Monitores Aleatorios:", option::RANDOM_MONITORS)
+			.addOption("Monitores Normales", 0)
+			.addOption("Escudos Aleatorios", 1)
+			.addOption("Monitores Aleatorios", 2);
 
-		configBuilder.addSetting("Monitor Behavior:", option::MONITOR_BEHAVIOR)
-			.addOption("Default", 0)
-			.addOption("Fall down when hit", 1);
+		configBuilder.addSetting("Comportamiento Del Monitor:", option::MONITOR_BEHAVIOR)
+			.addOption("Predeterminado", 0)
+			.addOption("Caen al golpearlos", 1);
 
-		configBuilder.addSetting("Hidden Monitors:", option::HIDDEN_MONITOR_HINT)
-			.addOption("No hint", 0)
-			.addOption("Sparkle near signpost", 1);
+		configBuilder.addSetting("Monitores Ocultos:", option::HIDDEN_MONITOR_HINT)
+			.addOption("Sin Pista", 0)
+			.addOption("Brilla Cerca del Cartel", 1);
 	}
 
-	CATEGORY("Special Stages")
+	CATEGORY("Fases Especiales")
 	{
-		configBuilder.addSetting("Special Stage Layouts:", option::RANDOM_SPECIALSTAGES)
+		configBuilder.addSetting("Diseño de Fases Especiales:", option::RANDOM_SPECIALSTAGES)
 			.addOption("Original", 0)
-			.addOption("Randomly Generated", 1);
+			.addOption("Generadas Aleatoriamente", 1);
 
-		configBuilder.addSetting("On Fail:", option::SPECIAL_STAGE_REPEAT)
-			.addOption("Advance to next", 0)
-			.addOption("Do not advance", 1);
+		configBuilder.addSetting("Al Fallar:", option::SPECIAL_STAGE_REPEAT)
+			.addOption("Avanzar a la siguiente", 0)
+			.addOption("No avanzar", 1);
 	}
 
 	CATEGORY("Region")
 	{
-		configBuilder.addSetting("Region Code:", option::REGION)
-			.addOption("Western (\"Tails\")", 0x80)
-			.addOption("Japan (\"Miles\")", 0x00);
+		configBuilder.addSetting("Codigo de Region:", option::REGION)
+			.addOption("Occidental (\"Tails\")", 0x80)
+			.addOption("Japon (\"Miles\")", 0x00);
 	}
 
-	CATEGORY("Speedrunning")
+	CATEGORY("Carrera de velocidad")
 	{
-		configBuilder.addSetting("Glitch Fixes:", option::FIX_GLITCHES)
-			.addOption("No glitch fixes", 0)
-			.addOption("Only basic fixes", 1)
-			.addOption("All (recommended)", 2);
+		configBuilder.addSetting("Correccion de errores:", option::FIX_GLITCHES)
+			.addOption("Sin correcciones", 0)
+			.addOption("Solo correcciones basicas", 1)
+			.addOption("Todas (recomendado)", 2);
 	}
 
-	CATEGORY("Other Enhancements")
+	CATEGORY("Otras Mejoras")
 	{
-		configBuilder.addSetting("Object Pushing Speed:", option::FASTER_PUSH)
+		configBuilder.addSetting("Velocidad Al Empujar Objetos:", option::FASTER_PUSH)
 			.addOption("Original", 0)
-			.addOption("Faster", 1);
+			.addOption("Mas rapido", 1);
 
-		configBuilder.addSetting("Score Tally Speed-Up:", option::LEVELRESULT_SCORE)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Acelerar el Recuento de Puntos:", option::LEVELRESULT_SCORE)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("LBZ Tube Transport:", option::LBZ_TUBETRANSPORT)
-			.addOption("Original Speed", 0)
-			.addOption("Faster", 1);
+		configBuilder.addSetting("Transporte por tubos de LBZ:", option::LBZ_TUBETRANSPORT)
+			.addOption("Velocidad Original", 0)
+			.addOption("Mas rapido", 1);
 
-		configBuilder.addSetting("MHZ Elevator:", option::MHZ_ELEVATOR)
-			.addOption("Original Speed", 0)
-			.addOption("Faster", 1);
+		configBuilder.addSetting("Ascensor de MHZ:", option::MHZ_ELEVATOR)
+			.addOption("Velocidad Original", 0)
+			.addOption("Mas rapido", 1);
 
 		configBuilder.addSetting("FBZ Door Opening:", option::FBZ_SCREWDOORS)
-			.addOption("Original Speed", 0)
-			.addOption("Faster", 1);
+			.addOption("Velocidad Original", 0)
+			.addOption("Mas rapido", 1);
 
-		configBuilder.addSetting("SOZ Pyramid Rising:", option::SOZ_PYRAMID)
-			.addOption("Original Speed", 0)
-			.addOption("Faster", 1);
+		configBuilder.addSetting("Elevacion de Piramide de SOZ:", option::SOZ_PYRAMID)
+			.addOption("Velocidad Original", 0)
+			.addOption("Mas rapido", 1);
 
-		configBuilder.addSetting("AIZ Knuckles Intro:", option::AIZ_INTRO_KNUCKLES)
-			.addOption("Off", 0)
-			.addOption("On", 1);
+		configBuilder.addSetting("Intro de Knuckles en AIZ:", option::AIZ_INTRO_KNUCKLES)
+			.addOption("Apagado", 0)
+			.addOption("Encendido", 1);
 
-		configBuilder.addSetting("FBZ Cylinder Behavior:", option::FBZ_ENTERCYLINDER)
+		configBuilder.addSetting("Comportamiento del Cilindro en FBZ:", option::FBZ_ENTERCYLINDER)
 			.addOption("Original", 0)
-			.addOption("Can enter from top", 1);
+			.addOption("Se puede entrar desde arriba", 1);
 
-		configBuilder.addSetting("Offscreen Player 2:", option::PLAYER2_OFFSCREEN)
-			.addOption("Not shown", 0)
-			.addOption("Show at border", 1);
+		configBuilder.addSetting("Jugador 2 fuera de pantalla:", option::PLAYER2_OFFSCREEN)
+			.addOption("No mostrar", 0)
+			.addOption("Mostrar en el borde", 1);
 	}
 }
 
