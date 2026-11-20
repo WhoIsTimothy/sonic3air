@@ -53,9 +53,9 @@ ControllerSetupMenu::ControllerSetupMenu(OptionsMenu& optionsMenu) :
 	mOptionsMenu(optionsMenu)
 {
 	mAssignmentType.addEntry("")
-					.addOption("Assign", (uint32)AssignmentType::ASSIGN)
-					.addOption("Append", (uint32)AssignmentType::APPEND)
-					.addOption("Remove", (uint32)AssignmentType::REMOVE);
+					.addOption("Asignar", (uint32)AssignmentType::ASSIGN)
+					.addOption("Agregar", (uint32)AssignmentType::APPEND)
+					.addOption("Quitar", (uint32)AssignmentType::REMOVE);
 }
 
 ControllerSetupMenu::~ControllerSetupMenu()
@@ -84,7 +84,7 @@ void ControllerSetupMenu::initialize()
 		refreshGamepadList(true);
 	}
 
-	mMenuEntries.addEntry("Assign all buttons", ::ASSIGN_ALL);
+	mMenuEntries.addEntry("Asignar todos los botones", ::ASSIGN_ALL);
 
 	for (size_t i = 0; i < InputConfig::DeviceDefinition::NUM_BUTTONS; ++i)
 	{
@@ -92,7 +92,7 @@ void ControllerSetupMenu::initialize()
 	}
 
 	{
-		GameMenuEntry& entry = mMenuEntries.addEntry("Visual Style", ::VISUAL_STYLE);
+		GameMenuEntry& entry = mMenuEntries.addEntry("Estilo Visual", ::VISUAL_STYLE);
 		entry.addOption("XBox", 0);
 		entry.addOption("PS", 1);
 		entry.addOption("Switch", 2);
@@ -104,7 +104,7 @@ void ControllerSetupMenu::initialize()
 	}
 
 	// Back button
-	mMenuEntries.addEntry("Back to Options", ::_BACK);
+	mMenuEntries.addEntry("Volver a Opciones", ::_BACK);
 }
 
 void ControllerSetupMenu::deinitialize()
@@ -373,18 +373,18 @@ void ControllerSetupMenu::render()
 	{
 		mMenuEntries.setSelectedIndexByValue(::_BACK);
 		py += 80;
-		drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), "No game controller found", 2, Color(0.6f, 0.8f, 1.0f, alpha));
+		drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), "No se encontro ningun control", 2, Color(0.6f, 0.8f, 1.0f, alpha));
 		py += 15;
 	}
 	else
 	{
 		if (Application::instance().hasKeyboard())
 		{
-			drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), "Select keyboard or game controller", 2, Color(0.6f, 0.8f, 1.0f, alpha));
+			drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), "Selecciona un teclado o control", 2, Color(0.6f, 0.8f, 1.0f, alpha));
 		}
 		else
 		{
-			drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), "Select game controller", 2, Color(0.6f, 0.8f, 1.0f, alpha));
+			drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), "Selecciona un control", 2, Color(0.6f, 0.8f, 1.0f, alpha));
 		}
 		py += 11;
 	}
@@ -465,7 +465,7 @@ void ControllerSetupMenu::render()
 					if (assignmentsString1.empty() && assignmentsString2.empty())
 					{
 						const Color grayColor = isSelected ? color : Color(color.r * 0.7f, color.g * 0.7f, color.b * 0.7f, color.a);
-						drawer.printText(font, Recti(baseX + 16, py, 0, 10), "none", 4, grayColor);
+						drawer.printText(font, Recti(baseX + 16, py, 0, 10), "ninguno", 4, grayColor);
 					}
 					else
 					{
@@ -681,7 +681,7 @@ void ControllerSetupMenu::refreshControlsDisplay()
 
 	if (mCurrentlyAssigningButtonIndex >= 0)
 	{
-		mGameMenuControlsDisplay.addControl("Clear", false, "input_icon_key_esc");
+		mGameMenuControlsDisplay.addControl("Borrar", false, "input_icon_key_esc");
 	}
 	else
 	{
@@ -689,26 +689,26 @@ void ControllerSetupMenu::refreshControlsDisplay()
 		switch (selectedEntry.mData)
 		{
 			case ::CONTROLLER_SELECT:
-				mGameMenuControlsDisplay.addControl("Select Keyboard or Gamepad", false, "@input_icon_button_left", "@input_icon_button_right");
+				mGameMenuControlsDisplay.addControl("Seleccionar Teclado o Control", false, "@input_icon_button_left", "@input_icon_button_right");
 				break;
 
 			case ::ASSIGN_ALL:
-				mGameMenuControlsDisplay.addControl("Assign all", false, "@input_icon_button_A");
+				mGameMenuControlsDisplay.addControl("Asignar todos", false, "@input_icon_button_A");
 				break;
 
 			case ::VISUAL_STYLE:
-				mGameMenuControlsDisplay.addControl("Change visual style", false, "@input_icon_button_left", "@input_icon_button_right");
+				mGameMenuControlsDisplay.addControl("Cambiar estilo visual", false, "@input_icon_button_left", "@input_icon_button_right");
 				break;
 
 			default:
 				if ((selectedEntry.mData & 0xf0) == 0x10)
 				{
-					mGameMenuControlsDisplay.addControl("Select", false, "@input_icon_button_A");
-					mGameMenuControlsDisplay.addControl("Assignment mode", false, "@input_icon_button_left", "@input_icon_button_right");
+					mGameMenuControlsDisplay.addControl("Seleccionar", false, "@input_icon_button_A");
+					mGameMenuControlsDisplay.addControl("Modo de asignacion", false, "@input_icon_button_left", "@input_icon_button_right");
 				}
 				break;
 		}
 	}
 
-	mGameMenuControlsDisplay.addControl("Back",	true, "@input_icon_button_B");
+	mGameMenuControlsDisplay.addControl("Volver",	true, "@input_icon_button_B");
 }
