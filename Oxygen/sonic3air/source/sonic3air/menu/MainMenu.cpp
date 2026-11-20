@@ -287,14 +287,14 @@ void MainMenu::render()
 		px -= 6 + global::mSmallfont.getWidth(text);
 		if (EngineMain::getDelegate().useDeveloperFeatures())
 		{
-			drawer.printText(global::mSmallfont, Vec2i(px, 1), "DEV MODE", 3, Color(0.6f, 0.2f, 0.2f, mVisibility * 0.3f));
+			drawer.printText(global::mSmallfont, Vec2i(px, 1), "MODO DESARROLLADOR", 3, Color(0.6f, 0.2f, 0.2f, mVisibility * 0.3f));
 		}
 		else
 		{
 			const uint32 value = ConfigurationImpl::instance().mActiveGameSettings->getValue((uint32)SharedDatabase::Setting::SETTING_FIX_GLITCHES);
 			if (value < 2)
 			{
-				const char* txt = (value == 0) ? "NO GLITCH FIXES" : "ONLY BASIC FIXES";
+				const char* txt = (value == 0) ? "SIN CORRECCIONES" : "SOLO CORRECCIONES BASICAS";
 				drawer.printText(global::mSmallfont, Vec2i(px, 1), txt, 3, Color(0.6f, 0.2f, 0.2f, mVisibility * 0.3f));
 			}
 		}
