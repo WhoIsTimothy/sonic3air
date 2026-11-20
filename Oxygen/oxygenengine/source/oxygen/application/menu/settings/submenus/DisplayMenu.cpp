@@ -19,16 +19,16 @@ void DisplayMenu::init()
 	loui::FontWrapper& font = SharedFonts::oxyFontSmallShadow;
 
 	mRendererSelection
-		.addOption("Fail-Safe / Pure Software",	Configuration::RenderMethod::SOFTWARE)
-		.addOption("OpenGL Software",			Configuration::RenderMethod::OPENGL_SOFT)
-		.addOption("OpenGL Hardware",			Configuration::RenderMethod::OPENGL_FULL)
-		.init("Renderer", font, buttonSize);
+		.addOption("Compatibilidad / Software",	Configuration::RenderMethod::SOFTWARE)
+		.addOption("OpenGL por Software",			Configuration::RenderMethod::OPENGL_SOFT)
+		.addOption("OpenGL por Hardware",			Configuration::RenderMethod::OPENGL_FULL)
+		.init("Renderizado", font, buttonSize);
 	addChildWidget(mRendererSelection);
 
 	mFrameSyncSelection
-		.addOption("V-Sync Off",		Configuration::FrameSyncType::VSYNC_OFF)
-		.addOption("V-Sync On",			Configuration::FrameSyncType::VSYNC_ON)
-		.addOption("V-Sync + FPS Cap",	Configuration::FrameSyncType::VSYNC_FRAMECAP)
+		.addOption("V-Sync Desactivado",		Configuration::FrameSyncType::VSYNC_OFF)
+		.addOption("V-Sync Activado",			Configuration::FrameSyncType::VSYNC_ON)
+		.addOption("V-Sync + Limite de FPS",	Configuration::FrameSyncType::VSYNC_FRAMECAP)
 		.init("Frame Sync", font, buttonSize);
 	addChildWidget(mFrameSyncSelection);
 
