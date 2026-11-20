@@ -214,13 +214,13 @@ OptionsMenu::OptionsMenu(MenuBackground& menuBackground) :
 	// Build up tab menu entries
 	mTabMenuEntries.addEntry<OptionsMenuEntry>().initEntry("", option::_TAB_SELECTION)
 		.addOption("MODS",     Tab::Id::MODS)
-		.addOption("SYSTEM",   Tab::Id::SYSTEM)
-		.addOption("DISPLAY",  Tab::Id::DISPLAY)
-		.addOption("AUDIO",    Tab::Id::AUDIO)
-		.addOption("VISUALS",  Tab::Id::VISUALS)
-		.addOption("GAMEPLAY", Tab::Id::GAMEPLAY)
-		.addOption("CONTROLS", Tab::Id::CONTROLS)
-		.addOption("TWEAKS",   Tab::Id::TWEAKS);
+		.addOption("SISTEMA",   Tab::Id::SYSTEM)
+		.addOption("PANTALLA",  Tab::Id::DISPLAY)
+		.addOption("SONIDO",    Tab::Id::AUDIO)
+		.addOption("VISUALES",  Tab::Id::VISUALS)
+		.addOption("JUGABILIDAD", Tab::Id::GAMEPLAY)
+		.addOption("CONTROLES", Tab::Id::CONTROLS)
+		.addOption("AJUSTES",   Tab::Id::TWEAKS);
 
 	for (int i = 0; i < Tab::Id::_NUM; ++i)
 	{
@@ -243,7 +243,7 @@ OptionsMenu::OptionsMenu(MenuBackground& menuBackground) :
 	for (int i = 1; i < Tab::Id::_NUM; ++i)		// Exclude Mods tab
 	{
 		GameMenuEntries& entries = mTabs[i].mMenuEntries;
-		entries.addEntry<OptionsMenuEntry>().initEntry("Back", option::_BACK);
+		entries.addEntry<OptionsMenuEntry>().initEntry("Volver", option::_BACK);
 
 		for (size_t k = 0; k < entries.size(); ++k)
 		{
@@ -963,12 +963,12 @@ void OptionsMenu::render()
 			if (mAudioWarningMessageTimeout > 0.0f)
 			{
 				visibility = saturate(mAudioWarningMessageTimeout / 0.3f);
-				message = "Note: Music changes don't affect already playing tracks.";
+				message = "Nota: los cambios de musica no afectan las pistas que ya estan reproduciéndose.";
 			}
 			else if (mWarningMessageTimeout > 0.0f)
 			{
 				visibility = saturate(mWarningMessageTimeout / 0.3f);
-				message = "Note: Some options are hidden while in-game.";
+				message = "Nota: algunas opciones estan ocultas durante la partida.";
 			}
 
 			if (visibility > 0.0f && nullptr != message)
@@ -1152,7 +1152,7 @@ void OptionsMenu::createOptionMenuEntry(GameMenuEntries& entries, const OptionsC
 
 		case option::SCRIPT_OPTIMIZATION:
 		{
-			entries.addEntry<LabelMenuEntry>().initEntry("These settings are meant only for debugging very specific issues.\nIt's recommended to leave them at their default values.", Color(1.0f, 0.8f, 0.6f));
+			entries.addEntry<LabelMenuEntry>().initEntry("Estas opciones están destinadas únicamente a depurar problemas muy específicos.\nSe recomienda dejarlas en sus valores predeterminados.", Color(1.0f, 0.8f, 0.6f));
 
 			GameMenuEntry& entry = entries.addEntry<AdvancedOptionMenuEntry>()
 				.setDefaultValue(-1)
@@ -1172,7 +1172,7 @@ void OptionsMenu::createOptionMenuEntry(GameMenuEntries& entries, const OptionsC
 
 		case option::DEV_MODE:
 		{
-			entries.addEntry<LabelMenuEntry>().initEntry("Dev Mode is providing debugging and mod development tools.\nIf you just want to play the game or use mods, leave it disabled.", Color(1.0f, 0.8f, 0.6f));
+			entries.addEntry<LabelMenuEntry>().initEntry("El modo desarrollador ofrece herramientas de depuración y creación de mods.\nSi solo querés jugar o usar mods, dejalo desactivado.", Color(1.0f, 0.8f, 0.6f));
 
 			GameMenuEntry& entry = entries.addEntry<DevModeMenuEntry>()
 				.initEntry(setting.mName, option::DEV_MODE)
@@ -1235,7 +1235,7 @@ void OptionsMenu::createModsTab()
 			{
 				if (mod->mSettingCategories.size() >= 2)
 				{
-					static const std::string OTHER_SETTINGS = "Other Settings";
+					static const std::string OTHER_SETTINGS = "Otros ajustes";
 					titleText = &OTHER_SETTINGS;
 				}
 			}
@@ -1284,7 +1284,7 @@ void OptionsMenu::createModsTab()
 		}
 	}
 
-	entries.addEntry<OptionsMenuEntry>().initEntry("Back", option::_BACK);
+	entries.addEntry<OptionsMenuEntry>().initEntry("Volver", option::_BACK);
 
 	mHasAnyModOptions = (nextOptionId > option::_NUM + 1);
 	mTabMenuEntries[0].mSelectedIndex = mActiveTab;
@@ -1373,39 +1373,39 @@ void OptionsMenu::refreshControlsDisplay()
 	const InputManager::ControllerScheme& keys = InputManager::instance().getController(0);
 	if (keys.X.isPressed())
 	{
-		mGameMenuControlsDisplay.addControl("Prev / Next category", false, "@input_icon_button_up", "@input_icon_button_down");
+		mGameMenuControlsDisplay.addControl("Categoria anterior / siguiente", false, "@input_icon_button_up", "@input_icon_button_down");
 	}
 	else
 	{
 		if (mActiveMenu == &mTabMenuEntries)
 		{
-			mGameMenuControlsDisplay.addControl("Switch Tab", false, "@input_icon_button_left", "@input_icon_button_right");
+			mGameMenuControlsDisplay.addControl("Cambiar seccion", false, "@input_icon_button_left", "@input_icon_button_right");
 		}
 		else if (selectedEntry.getMenuEntryType() == ModTitleMenuEntry::MENU_ENTRY_TYPE)
 		{
 			if (selectedEntry.mSelectedIndex == 0)
-				mGameMenuControlsDisplay.addControl("Expand", false, "@input_icon_button_right");
+				mGameMenuControlsDisplay.addControl("Expandir", false, "@input_icon_button_right");
 			else
-				mGameMenuControlsDisplay.addControl("Collapse", false, "@input_icon_button_left");
+				mGameMenuControlsDisplay.addControl("Contraer", false, "@input_icon_button_left");
 		}
 		else if (selectedEntry.mOptions.size() >= 2)
 		{
-			mGameMenuControlsDisplay.addControl("Change", false, "@input_icon_button_left", "@input_icon_button_right");
+			mGameMenuControlsDisplay.addControl("Cambiar", false, "@input_icon_button_left", "@input_icon_button_right");
 			if (selectedEntry.mData == option::SOUND_TEST)
-				mGameMenuControlsDisplay.addControl("Play", false, "@input_icon_button_A");
+				mGameMenuControlsDisplay.addControl("Reproducir", false, "@input_icon_button_A");
 		}
 		else
 		{
-			mGameMenuControlsDisplay.addControl("Select", false, "@input_icon_button_A");
+			mGameMenuControlsDisplay.addControl("Seleccionar", false, "@input_icon_button_A");
 		}
 
 		if (mActiveTab == Tab::Id::MODS)
 		{
 			// Show only here, as that's where it's most relevent - however, it works in the other tabs as well
-			mGameMenuControlsDisplay.addControl("Hold: Quick Nav", true, "@input_icon_button_X");
+			mGameMenuControlsDisplay.addControl("Mantener: Nav. Rapida", true, "@input_icon_button_X");
 		}
 
-		mGameMenuControlsDisplay.addControl("Back",	true, "@input_icon_button_B");
+		mGameMenuControlsDisplay.addControl("Volver",	true, "@input_icon_button_B");
 	}
 }
 
