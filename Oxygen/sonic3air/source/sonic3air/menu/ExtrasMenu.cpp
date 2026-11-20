@@ -50,8 +50,8 @@ ExtrasMenu::ExtrasMenu(MenuBackground& menuBackground) :
 	// Build up tab menu entries
 	mTabMenuEntries.addEntry("", 0)
 					.addOption("EXTRAS",	   Tab::Id::EXTRAS)
-					.addOption("SECRETS",	   Tab::Id::SECRETS)
-					.addOption("ACHIEVEMENTS", Tab::Id::ACHIEVEMENTS);
+					.addOption("SECRETOS",	   Tab::Id::SECRETS)
+					."LOGROS", Tab::Id::ACHIEVEMENTS);
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -124,7 +124,7 @@ void ExtrasMenu::onFadeIn()
 			}
 		}
 
-		entries.addEntry("Back", BACK);
+		entries.addEntry("Volver", BACK);
 	}
 
 	// Rebuild secrets, because hidden secrets may have been added
@@ -144,7 +144,7 @@ void ExtrasMenu::onFadeIn()
 			entries.addEntry(secret.mName, secret.mType);
 		}
 
-		entries.addEntry("Back", BACK);
+		entries.addEntry("Volver", BACK);
 	}
 
 	// Rebuild achievements, because their order (but not their number) can change over time
@@ -164,7 +164,7 @@ void ExtrasMenu::onFadeIn()
 			}
 		}
 
-		entries.addEntry("Back", BACK);
+		entries.addEntry("Volver", BACK);
 	}
 
 	mMenuBackground->showPreview(false, false);
@@ -376,8 +376,8 @@ void ExtrasMenu::render()
 
 		if (!showExtrasMenuTabContent(tabIndex))
 		{
-			const char* text2 = EngineMain::getDelegate().useDeveloperFeatures() ? "because Dev Mode is active" : "because Debug Mode is active";
-			drawer.printText(global::mSonicFontB, Vec2i(baseX, py + 22), "Achievements are locked", 5, Color(1.0f, 0.75f, 0.5f, alpha));
+			const char* text2 = EngineMain::getDelegate().useDeveloperFeatures() ? "porque el Modo Desarrollador esta activo" : "porque el Modo Debug esta activo";
+			drawer.printText(global::mSonicFontB, Vec2i(baseX, py + 22), "Los logros estan bloqueados", 5, Color(1.0f, 0.75f, 0.5f, alpha));
 			drawer.printText(global::mSonicFontB, Vec2i(baseX, py + 35), text2, 5, Color(1.0f, 0.75f, 0.5f, alpha));
 
 			if (mTailsYawning.getWidth() == 0)
@@ -497,7 +497,7 @@ void ExtrasMenu::render()
 				}
 				else
 				{
-					String text(0, "Complete %d achievements to unlock", secret->mRequiredAchievements);
+					String text(0, "Completa %d logros para desbloquear", secret->mRequiredAchievements);
 					py += 19;
 					drawer.printText(global::mOxyfontTiny, Recti(px - 105, py, 0, 10), text, 1, color2);
 
