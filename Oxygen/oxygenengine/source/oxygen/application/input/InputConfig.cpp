@@ -194,7 +194,7 @@ namespace
 
 
 
-const std::string InputConfig::DeviceDefinition::BUTTON_NAME[InputConfig::DeviceDefinition::NUM_BUTTONS] = { "Up", "Down", "Left", "Right", "A", "B", "X", "Y", "Start", "Back", "L", "R" };
+const std::string InputConfig::DeviceDefinition::BUTTON_NAME[InputConfig::DeviceDefinition::NUM_BUTTONS] = { "Arriba", "Abajo", "Izquierda", "Derecha", "A", "B", "X", "Y", "Inicio", "Atras", "L", "R" };
 
 
 void InputConfig::Assignment::getMappingString(String& outString, DeviceType deviceType) const
