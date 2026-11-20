@@ -433,7 +433,7 @@ void ExtrasMenu::render()
 				if (isSelected)
 				{
 					const Color color3(1.0f, 1.0f - std::fabs(std::fmod(FTX::getTime(), 1.0f) - 0.5f) * 2.0f, 0.0f, entry.mAnimation.mHighlight);
-					drawer.printText(global::mOxyfontSmall, Recti(px + roundToInt(interpolate(50.0f, 0.0f, entry.mAnimation.mHighlight)), py - 11, 0, 10), "Press Enter to start", 2, color3);
+					drawer.printText(global::mOxyfontSmall, Recti(px + roundToInt(interpolate(50.0f, 0.0f, entry.mAnimation.mHighlight)), py - 11, 0, 10), "Presiona Start para entrar", 2, color3);
 				}
 				py -= 8;
 			}
@@ -443,7 +443,7 @@ void ExtrasMenu::render()
 				if (line == 1)
 				{
 					py += 15;
-					drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), String(0, "%d of %d achievements completed", mAchievementsCompleted, (int)SharedDatabase::getAchievements().size()), 5, Color(0.6f, 0.8f, 1.0f, alpha));
+					drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), String(0, "%d of %d logros completados", mAchievementsCompleted, (int)SharedDatabase::getAchievements().size()), 5, Color(0.6f, 0.8f, 1.0f, alpha));
 					py += 16;
 				}
 
@@ -515,7 +515,7 @@ void ExtrasMenu::render()
 				if (section != newSection)
 				{
 					py += (line == 1) ? 15 : 30;
-					drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), isComplete ? "* Completed achievements *" : "* Open achievements *", 5, Color(0.6f, 0.8f, 1.0f, tabAlpha));
+					drawer.printText(global::mSonicFontB, Recti(baseX, py, 0, 10), isComplete ? "Logros completados *" : "* Logros abiertos *", 5, Color(0.6f, 0.8f, 1.0f, tabAlpha));
 					py += 16;
 					section = newSection;
 
@@ -552,7 +552,7 @@ void ExtrasMenu::render()
 							textLines = &mDescriptionLinesCache[entry.mData];
 							utils::splitTextIntoLines(*textLines, achievement->mDescription, global::mOxyfontTiny, 260);
 							if (!achievement->mHint.empty())
-								textLines->emplace_back("Hint: " + achievement->mHint);
+								textLines->emplace_back("Pista: " + achievement->mHint);
 						}
 						else
 						{
