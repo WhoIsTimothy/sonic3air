@@ -29,7 +29,7 @@ void DisplayMenu::init()
 		.addOption("V-Sync Desactivado",		Configuration::FrameSyncType::VSYNC_OFF)
 		.addOption("V-Sync Activado",			Configuration::FrameSyncType::VSYNC_ON)
 		.addOption("V-Sync + Limite de FPS",	Configuration::FrameSyncType::VSYNC_FRAMECAP)
-		.init("Frame Sync", font, buttonSize);
+		.init("Sinc. de Cuadros", font, buttonSize);
 	addChildWidget(mFrameSyncSelection);
 
 /*
