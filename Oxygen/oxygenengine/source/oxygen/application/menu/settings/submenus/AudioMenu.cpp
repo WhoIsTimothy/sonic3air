@@ -27,9 +27,9 @@ void AudioMenu::init()
 		addChildWidget(selection);
 	};
 
-	setupVolumeSelection(mMasterVolumeSelection, "Main Volume");
-	setupVolumeSelection(mMusicVolumeSelection, "Music");
-	setupVolumeSelection(mSoundVolumeSelection, "Sound Effects");
+	setupVolumeSelection(mMasterVolumeSelection, "Volumen General");
+	setupVolumeSelection(mMusicVolumeSelection, "Musica");
+	setupVolumeSelection(mSoundVolumeSelection, "Sonido");
 
 	const Configuration& config = Configuration::instance();
 
