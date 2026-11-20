@@ -30,11 +30,11 @@ void ModsStartPage::initialize()
 		return;
 
 #if defined(PLATFORM_WINDOWS) || defined(PLATFORM_MAC) || defined(PLATFORM_LINUX)
-	mMenuEntries.addEntry("Open mods " PLATFORM_DIRECTORY_STRING, (uint32)Option::OPEN_MODS_FOLDER);
+	mMenuEntries.addEntry("Abrir Carpeta de Mods " PLATFORM_DIRECTORY_STRING, (uint32)Option::OPEN_MODS_FOLDER);
 #endif
 
-	mMenuEntries.addEntry("Open Manual in web browser", (uint32)Option::OPEN_MANUAL);
-	mMenuEntries.addEntry("Back", (uint32)Option::GO_BACK);
+	mMenuEntries.addEntry("Abrir Manual en el navegador", (uint32)Option::OPEN_MANUAL);
+	mMenuEntries.addEntry("Volver", (uint32)Option::GO_BACK);
 }
 
 bool ModsStartPage::update(float timeElapsed)
@@ -96,17 +96,17 @@ void ModsStartPage::render(Drawer& drawer, float visibility)
 	const int globalOffsetX = -roundToInt(saturate(1.0f - visibility) * 300.0f);
 
 	Recti rect(globalOffsetX + 32, 16, 300, 18);
-	drawer.printText(global::mSonicFontB, rect, "No mods installed!", 1, Color(0.6f, 0.8f, 1.0f, visibility));
+	drawer.printText(global::mSonicFontB, rect, "No hay mods instalados!", 1, Color(0.6f, 0.8f, 1.0f, visibility));
 	rect.y += 22;
 
 	Color color(0.8f, 0.9f, 1.0f, visibility);
-	drawer.printText(global::mOxyfontSmall, rect, "Have a look at the game manual PDF for instructions", 1, color);
+	drawer.printText(global::mOxyfontSmall, rect, "Consulta el manual PDF del juego para ver las instrucciones", 1, color);
 	rect.y += 14;
-	drawer.printText(global::mOxyfontSmall, rect, "on how to install mods.", 1, color);
+	drawer.printText(global::mOxyfontSmall, rect, "sobre instalar mods.", 1, color);
 	rect.y += 18;
-	drawer.printText(global::mOxyfontSmall, rect, "Note that you will have to restart Sonic 3 A.I.R.", 1, color);
+	drawer.printText(global::mOxyfontSmall, rect, "Ten en cuenta que deberas reiniciar Sonic 3 A.I.R.", 1, color);
 	rect.y += 14;
-	drawer.printText(global::mOxyfontSmall, rect, "to make it scan for new mods.", 1, color);
+	drawer.printText(global::mOxyfontSmall, rect, "para que busque nuevos mods.", 1, color);
 	rect.y += 32;
 	rect.x += 16;
 
