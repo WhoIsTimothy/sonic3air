@@ -46,15 +46,15 @@ MainMenu::MainMenu(MenuBackground& menuBackground) :
 	// Build up menu structure
 	{
 		mMenuEntries.reserve(6);
-		mMenuEntries.addEntry("NORMAL GAME", mainmenu::NORMAL_GAME);
-		mMenuEntries.addEntry("ACT SELECT",  mainmenu::ACT_SELECT);
-		mMenuEntries.addEntry("TIME ATTACK", mainmenu::TIME_ATTACK);
-		mMenuEntries.addEntry("OPTIONS",	 mainmenu::OPTIONS);
+		mMenuEntries.addEntry("JUGAR", mainmenu::NORMAL_GAME);
+		mMenuEntries.addEntry("SELECTOR DE ACTO",  mainmenu::ACT_SELECT);
+		mMenuEntries.addEntry("CONTRARRELOJ", mainmenu::TIME_ATTACK);
+		mMenuEntries.addEntry("OPCIONES",	 mainmenu::OPTIONS);
 		mMenuEntries.addEntry("EXTRAS",		 mainmenu::EXTRAS);
 		mMenuEntries.addEntry("MODS",		 mainmenu::MODS);
 
 	#if !defined(PLATFORM_ANDROID) && !defined(PLATFORM_IOS) && !defined(PLATFORM_WEB)
-		mMenuEntries.addEntry("EXIT",		 mainmenu::EXIT);
+		mMenuEntries.addEntry("SALIR",		 mainmenu::EXIT);
 	#endif
 	}
 
