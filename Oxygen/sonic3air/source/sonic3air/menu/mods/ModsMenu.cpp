@@ -636,7 +636,7 @@ void ModsMenu::render()
 		{
 			Recti visualRect = rect;
 			visualRect.x += 24;
-			std::string text = (tabIndex == 0) ? "Active Mods" : "Inactive Mods";
+			std::string text = (tabIndex == 0) ? "Mods Activos" : "Mods Inactivos";
 			if (tabIndex == mActiveTab)
 			{
 				text = "* " + text + " *";
@@ -649,7 +649,7 @@ void ModsMenu::render()
 		const bool showPriorityHints = (tabIndex == 0 && mActiveTab == 0 && mInMovementMode && menuEntries.size() >= 2);
 		if (showPriorityHints)
 		{
-			drawer.printText(global::mSmallfont, rect + Vec2i(-12, -12), "HIGH PRIORITY", 1, Color(0.4f, 0.5f, 0.6f, alpha * 0.25f));
+			drawer.printText(global::mSmallfont, rect + Vec2i(-12, -12), "ALTA PRIORIDAD", 1, Color(0.4f, 0.5f, 0.6f, alpha * 0.25f));
 		}
 
 		if (menuEntries.empty())
@@ -657,7 +657,7 @@ void ModsMenu::render()
 			Recti visualRect = rect;
 			visualRect.x -= roundToInt(saturate(1.0f - mVisibility) * 300.0f);
 			Color color = (tabIndex == mActiveTab) ? Color(1.0f, 1.0f, 1.0f, alpha) : Color(0.7f, 0.7f, 0.7f, alpha);
-			drawer.printText(global::mOxyfontSmall, visualRect + Vec2i(24, 0), (tabIndex == 0) ? "- None -" : "- None -", 1, color);
+			drawer.printText(global::mOxyfontSmall, visualRect + Vec2i(24, 0), (tabIndex == 0) ? "- None -" : "- Ninguno -", 1, color);
 		}
 
 		for (size_t index = 0; index < menuEntries.size(); ++index)
@@ -723,7 +723,7 @@ void ModsMenu::render()
 
 		if (showPriorityHints)
 		{
-			drawer.printText(global::mSmallfont, rect + Vec2i(-12, -3), "LOW PRIORITY", 1, Color(0.4f, 0.5f, 0.6f, alpha * 0.25f));
+			drawer.printText(global::mSmallfont, rect + Vec2i(-12, -3), "BAJA PRIORIDAD", 1, Color(0.4f, 0.5f, 0.6f, alpha * 0.25f));
 		}
 
 		drawer.popScissor();
@@ -773,7 +773,7 @@ void ModsMenu::render()
 				}
 				if (!modEntry->mMod->mAuthor.empty())
 				{
-					drawer.printText(global::mOxyfontSmallNoOutline, rect + Vec2i(8, 0), "by " + modEntry->mMod->mAuthor, 1, colorY);
+					drawer.printText(global::mOxyfontSmallNoOutline, rect + Vec2i(8, 0), "por " + modEntry->mMod->mAuthor, 1, colorY);
 					rect.y += 15;
 				}
 				if (!modEntry->mMod->mModVersion.empty())
@@ -793,7 +793,7 @@ void ModsMenu::render()
 				}
 				if (!modEntry->mMod->mURL.empty())
 				{
-					drawer.printText(global::mOxyfontTinySimple, rect, "More info:   " + modEntry->mMod->mURL, 1, colorW);
+					drawer.printText(global::mOxyfontTinySimple, rect, "Mas info:   " + modEntry->mMod->mURL, 1, colorW);
 					rect.y += 16;
 				}
 			}
@@ -811,7 +811,7 @@ void ModsMenu::render()
 	{
 		Recti rect(100, 94, 200, 35);
 		DrawerHelper::drawBorderedRect(drawer, rect, 1, Color(1.0f, 1.0f, 1.0f, 0.95f), Color(0.2f, 0.2f, 0.2f, 0.9f));
-		drawer.printText(global::mOxyfontRegular, rect, "Applying changes...", 5);
+		drawer.printText(global::mOxyfontRegular, rect, "Aplicando cambios...", 5);
 	}
 
 	if (ConfigurationImpl::instance().mShowControlsDisplay)
@@ -875,7 +875,7 @@ void ModsMenu::refreshDependencies(ModMenuEntry& modMenuEntry, size_t modIndex)
 				// Show error
 				ModMenuEntry::Remark& remark = vectorAdd(modMenuEntry.mRemarks);
 				remark.mIsError = true;
-				remark.mText = std::string("This mod does not work together with \"") + otherMod->mDisplayName + "\", please deactivate one of both";
+				remark.mText = std::string("Este mod no es compatible con \"") + otherMod->mDisplayName + "\", porfavor, desactiva uno de los dos";
 			}
 			else
 			{
@@ -886,7 +886,7 @@ void ModsMenu::refreshDependencies(ModMenuEntry& modMenuEntry, size_t modIndex)
 					// Show warning
 					ModMenuEntry::Remark& remark = vectorAdd(modMenuEntry.mRemarks);
 					remark.mIsError = otherModInfo.mIsRequired;
-					remark.mText = std::string("This mod needs to be placed ") + (otherShouldBeHigherPrio ? "below" : "above") + " \"" + otherMod->mDisplayName + "\"";
+					remark.mText = std::string("Este mod debe colocarse ") + (otherShouldBeHigherPrio ? "debajo de" : "arriba de") + " \"" + otherMod->mDisplayName + "\"";
 				}
 			}
 		}
@@ -899,11 +899,11 @@ void ModsMenu::refreshDependencies(ModMenuEntry& modMenuEntry, size_t modIndex)
 				remark.mIsError = true;
 				if (nullptr != otherMod)
 				{
-					remark.mText = std::string("This mod requires \"") + otherMod->mDisplayName + "\" to be activated as well, and placed " + (otherShouldBeHigherPrio ? "above" : "below") + " this one";
+					remark.mText = std::string("Este mod necesita \"") + otherMod->mDisplayName + "\" tambien activado y puesto " + (otherShouldBeHigherPrio ? "encima de" : "debajo de") + " este mod";
 				}
 				else
 				{
-					remark.mText = std::string("This mod requires \"") + otherModInfo.mDisplayName + "\" in order to work (you might need to search for that mod online)";
+					remark.mText = std::string("Este mod necesita \"") + otherModInfo.mDisplayName + "\" para funcionar (quizas debas buscar ese mod en internet)";
 				}
 			}
 		}
@@ -921,26 +921,26 @@ void ModsMenu::refreshControlsDisplay()
 	{
 		if (mActiveTab == 0)
 		{
-			mGameMenuControlsDisplay.addControl("Deactivate", false, "@input_icon_button_right");
-			mGameMenuControlsDisplay.addControl("Change priority", false, "@input_icon_button_up", "@input_icon_button_down");
+			mGameMenuControlsDisplay.addControl("Desactivar", false, "@input_icon_button_right");
+			mGameMenuControlsDisplay.addControl("Cambiar prioridad", false, "@input_icon_button_up", "@input_icon_button_down");
 		}
 		else
 		{
-			mGameMenuControlsDisplay.addControl("Activate", false, "@input_icon_button_left");
+			mGameMenuControlsDisplay.addControl("Activar", false, "@input_icon_button_left");
 		}
 	}
 	else if (keys.X.isPressed())
 	{
-		mGameMenuControlsDisplay.addControl("Move quickly", false, "@input_icon_button_up", "@input_icon_button_down");
+		mGameMenuControlsDisplay.addControl("Mover rapidamente", false, "@input_icon_button_up", "@input_icon_button_down");
 	}
 	else if (!mTabs[mActiveTab].mMenuEntries.empty())
 	{
-		mGameMenuControlsDisplay.addControl("Hold: Move mod", false, "@input_icon_button_A");
-		mGameMenuControlsDisplay.addControl("Details", false, "@input_icon_button_Y");
-		mGameMenuControlsDisplay.addControl("Hold: Quick Nav", true, "@input_icon_button_X");
+		mGameMenuControlsDisplay.addControl("Mantener: Mover mod", false, "@input_icon_button_A");
+		mGameMenuControlsDisplay.addControl("Detalles", false, "@input_icon_button_Y");
+		mGameMenuControlsDisplay.addControl("Mantener: Nav. Rapida", true, "@input_icon_button_X");
 	}
 
-	mGameMenuControlsDisplay.addControl("Back", true, "@input_icon_button_B");
+	mGameMenuControlsDisplay.addControl("Volver", true, "@input_icon_button_B");
 }
 
 int ModsMenu::getInfoOverlayHeight() const
