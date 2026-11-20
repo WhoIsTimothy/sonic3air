@@ -22,7 +22,7 @@ namespace
 {
 	String formatTime(int hundreds, bool allowShortSpace = false)
 	{
-		// Misusing the degree character '°' = 0xb0 for a short space; the font has to support this
+		// Misusing the degree character 'Â°' = 0xb0 for a short space; the font has to support this
 		// TODO: Maybe use a different character for this...?
 		return String(0, "%d'%c%02d\"%02d", hundreds / 6000, allowShortSpace ? (char)0xb0 : ' ', (hundreds / 100) % 60, hundreds % 100);
 	}
@@ -120,19 +120,19 @@ void TimeAttackResultsMenu::render()
 		Recti rect(mRect.width - global::mTimeAttackResultsBG.getWidth(), 0, global::mTimeAttackResultsBG.getWidth(), global::mTimeAttackResultsBG.getHeight());
 		drawer.drawRect(rect, global::mTimeAttackResultsBG);
 
-		const String text = String("Your time:   ") + formatTime(mYourTime, true);
+		const String text = String("Tu tiempo:   ") + formatTime(mYourTime, true);
 		drawer.printText(global::mSonicFontC, Vec2i(76 + std::min(roundToInt(mTime * 500) - 160, 0), 97), text, 1);
 
 		if (!mBetterTimes.empty())
 		{
-			const String text = (mBetterTimes.size() == 1) ? "Time to beat:" : "Times to beat:";
+			const String text = (mBetterTimes.size() == 1) ? "Time to beat:" : "Tiempos a vencer:";
 			const int px = 232 + ((int)mBetterTimes.size() + 1) * 2 + roundToInt(std::max(0.45f - mTime, 0.0f) * 750);
 			const int py = 79 - ((int)mBetterTimes.size() + 1) * 16;
 			drawer.printText(global::mOxyfontRegular, Vec2i(px, py), text, 1);
 		}
 		else if (!mWorseTimes.empty())
 		{
-			const String text = "NEW RECORD!";
+			const String text = "NUEVO RECORD!";
 			const int px = 238 + roundToInt(std::max(0.45f - mTime, 0.0f) * 750);
 			const int py = 64;
 			drawer.printText(global::mOxyfontRegular, Vec2i(px, py), text, 1, roundToInt(mTime * 8.0f) % 2 ? Color::YELLOW : Color::WHITE);
