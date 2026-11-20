@@ -178,7 +178,7 @@ void OptionsMenuEntry::renderInternal(RenderContext& renderContext_, const Color
 
 		if (mData == option::CONTROLLER_SETUP)
 		{
-			drawer.printText(font, Recti(baseX, py, 0, 10), Application::instance().hasKeyboard() ? "Configurar teclado y botones..." : "Configurar controles...", 5, color);
+			drawer.printText(font, Recti(baseX, py, 0, 10), Application::instance().hasKeyboard() ? "Configurar teclado y controles..." : "Configurar controles...", 5, color);
 		}
 		else
 		{
@@ -451,6 +451,6 @@ void DevModeMenuEntry::renderEntry(RenderContext& renderContext_)
 		const int baseX = renderContext.mCurrentPosition.x;
 		int& py = renderContext.mCurrentPosition.y;
 		py += 14;
-		drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "App restart required to switch Dev Mode on or off!", 5, Color(1.0f, 0.8f, 0.6f, renderContext.mTabAlpha));
+		drawer.printText(global::mOxyfontSmall, Recti(baseX, py, 0, 10), "¡Se debe reiniciar el juego para activar o desactivar el modo desarrollador!", 5, Color(1.0f, 0.8f, 0.6f, renderContext.mTabAlpha));
 	}
 }
