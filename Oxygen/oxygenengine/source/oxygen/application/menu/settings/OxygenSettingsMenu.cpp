@@ -22,9 +22,9 @@ void OxygenSettingsMenu::init()
 	addChildWidget(mOverviewLayout);
 
 	//setupSubMenu(SubMenu::Type::GENERAL,  "General");
-	setupSubMenu(SubMenu::Type::DISPLAY,  "Display");
-	setupSubMenu(SubMenu::Type::AUDIO,	  "Audio");
-	//setupSubMenu(SubMenu::Type::CONTROLS, "Controls");
+	setupSubMenu(SubMenu::Type::DISPLAY,  "Pantalla");
+	setupSubMenu(SubMenu::Type::AUDIO,	  "Sonido");
+	//setupSubMenu(SubMenu::Type::CONTROLS, "Controles");
 
 	{
 		mOverviewLayout.makeFocusedChild();
